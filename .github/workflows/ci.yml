@@ -20,7 +20,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
+        port: 3031 # ${{ secrets.PORT }}
         script: whoami
 
     - name: executing remote ssh commands using ssh key
@@ -29,7 +29,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        port: 3031 # ${{ secrets.PORT }}
         script: whoami
 
     - name: multiple command
@@ -38,7 +38,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        port: 3031 # ${{ secrets.PORT }}
         script: |
           whoami
           ls -al
@@ -64,7 +64,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        port: 3031 #${{ secrets.PORT }}
         envs: FOO
         script: |
           echo "I am $FOO, thanks"
@@ -76,12 +76,12 @@ jobs:
         FOO: "BAR"
         BAR: "FOO"
         SHA: ${{ github.sha }}
-        PORT: ${{ secrets.PORT }}
+        PORT: 3031 #${{ secrets.PORT }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        port: 3031 #${{ secrets.PORT }}
         envs: FOO,BAR,SHA,PORT
         script: |
           echo "I am $FOO, thanks"
@@ -107,7 +107,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
+        port: 3031 #${{ secrets.PORT }}
         script: |
             ls \
               -lah
@@ -120,7 +120,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
+        port: 3031 #${{ secrets.PORT }}
         script_stop: true
         script: |
             ls \
@@ -131,10 +131,10 @@ jobs:
     - name: Deployment to multiple hosts with different ports
       uses: ./
       with:
-        host: "${{ secrets.HOST }}:${{ secrets.PORT }}"
+        host: "${{ secrets.HOST }}:3031" # ${{ secrets.PORT }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 1024
+        port: 3031
         script_stop: true
         script: |
             ls \
