@@ -11,8 +11,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@v1
+    # - name: checkout
+    #  uses: actions/checkout@v1
 
     - name: executing remote ssh commands using password
       uses: ./
@@ -89,17 +89,17 @@ jobs:
           echo "sha: $SHA"
           echo "port: $PORT"
 
-    - name: ssh key passphrase
-      uses: ./
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH2 }}
-        port: ${{ secrets.PORT }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        script: |
-          whoami
-          ls -al
+   # - name: ssh key passphrase
+   #  uses: ./
+    #  with:
+     #   host: ${{ secrets.HOST }}
+     #   username: ${{ secrets.USERNAME }}
+      #  key: ${{ secrets.SSH2 }}
+      #  port: ${{ secrets.PORT }}
+       # passphrase: ${{ secrets.PASSPHRASE }}
+      #  script: |
+        #  whoami
+       #  ls -al
 
     - name: use insecure cipher
       uses: ./
@@ -141,11 +141,11 @@ jobs:
               -lah
         use_insecure_cipher: true
 
-    - name: SSH ED25519 Private Key
-      uses: ./
-      with:
-        host: ${{ secrets.TUNNEL_HOST }}
-        username: ${{ secrets.TUNNEL_USERNAME }}
-        key: ${{ secrets.ID_ED25519 }}
-        port: ${{ secrets.TUNNEL_PORT }}
-        script: whoami
+  #  - name: SSH ED25519 Private Key
+   #   uses: ./
+    #  with:
+     #   host: ${{ secrets.TUNNEL_HOST }}
+     #   username: ${{ secrets.TUNNEL_USERNAME }}
+      #  key: ${{ secrets.ID_ED25519 }}
+     #   port: ${{ secrets.TUNNEL_PORT }}
+     #   script: whoami
