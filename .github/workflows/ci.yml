@@ -20,7 +20,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 3031 # ${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         script: whoami
 
     - name: executing remote ssh commands using ssh key
@@ -29,7 +29,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: 3031 # ${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         script: whoami
 
     - name: multiple command
@@ -38,23 +38,10 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: 3031 # ${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         script: |
           whoami
           ls -al
-
-    # - name: stop script if command error
-    #   if: always()
-    #   uses: ./
-    #   with:
-    #     host: ${{ secrets.HOST }}
-    #     username: ${{ secrets.USERNAME }}
-    #     key: ${{ secrets.KEY }}
-    #     port: ${{ secrets.PORT }}
-    #     script_stop: true
-    #     script: |
-    #       mkdir abc/def
-    #       ls -al
 
     - name: pass environment
       uses: ./
@@ -64,7 +51,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: 3031 #${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         envs: FOO
         script: |
           echo "I am $FOO, thanks"
@@ -76,12 +63,12 @@ jobs:
         FOO: "BAR"
         BAR: "FOO"
         SHA: ${{ github.sha }}
-        PORT: 3031 #${{ secrets.PORT }}
+        PORT: ${{ secrets.PORT }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: 3031 #${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         envs: FOO,BAR,SHA,PORT
         script: |
           echo "I am $FOO, thanks"
@@ -89,25 +76,13 @@ jobs:
           echo "sha: $SHA"
           echo "port: $PORT"
 
-   # - name: ssh key passphrase
-   #  uses: ./
-    #  with:
-     #   host: ${{ secrets.HOST }}
-     #   username: ${{ secrets.USERNAME }}
-      #  key: ${{ secrets.SSH2 }}
-      #  port: ${{ secrets.PORT }}
-       # passphrase: ${{ secrets.PASSPHRASE }}
-      #  script: |
-        #  whoami
-       #  ls -al
-
     - name: use insecure cipher
       uses: ./
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 3031 #${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         script: |
             ls \
               -lah
@@ -120,7 +95,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 3031 #${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}
         script_stop: true
         script: |
             ls \
@@ -131,21 +106,12 @@ jobs:
     - name: Deployment to multiple hosts with different ports
       uses: ./
       with:
-        host: "${{ secrets.HOST }}:3031" # ${{ secrets.PORT }}
+        host: "${{ secrets.HOST }}:${{ secrets.PORT }}"
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 3031
+        port: ${{ secrets.PORT }}
         script_stop: true
         script: |
             ls \
               -lah
         use_insecure_cipher: true
-
-  #  - name: SSH ED25519 Private Key
-   #   uses: ./
-    #  with:
-     #   host: ${{ secrets.TUNNEL_HOST }}
-     #   username: ${{ secrets.TUNNEL_USERNAME }}
-      #  key: ${{ secrets.ID_ED25519 }}
-     #   port: ${{ secrets.TUNNEL_PORT }}
-     #   script: whoami
